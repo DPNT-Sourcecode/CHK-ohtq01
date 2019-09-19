@@ -19,15 +19,16 @@ class Checkout
   def checkout(skus)
     return -1 unless skus.is_a? String
     return -1 unless skus.each_char.all? {|sku| Checkout.valid_sku? sku }
+    return 0 if skus.empty?
 
     each_sku_count = Hash.new 0
     skus.each_char do |sku|
       each_sku_count[sku] = each_sku_count[sku] + 1
     end
 
-    price, remaining_products = Checkout.traverse_discounts 0, each_sku_count
+    puts Checkout.traverse_discounts(0, each_sku_count)
 
-    return price
+    # return price
   end
 
   def self.valid_sku?(sku)
@@ -66,14 +67,23 @@ class Checkout
       end
     end
 
-    puts applieds.reject{|v| v.nil?}.inspect
+    options = applieds.reject{|v| v.nil?}.flat_map do |total, basket|
+      if basket.empty? then
+        basket
+      else
+        self.traverse_discounts(total, basket)
+      end
+    end
 
-    return [0, {}]
+    puts options.inspect
+
+    # return [0, {}]
 
   end
 
 
 end
+
 
 
 
