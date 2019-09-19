@@ -51,6 +51,3 @@ class ClientTest < Minitest::Test
   end
 
 end
-
-
-

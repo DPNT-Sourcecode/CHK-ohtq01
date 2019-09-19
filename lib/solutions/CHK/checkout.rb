@@ -28,7 +28,11 @@ class Checkout
       each_sku_count[sku] = each_sku_count[sku] + 1
     end
 
-    Checkout.traverse_discounts(0, each_sku_count).map(&:first).min
+    results = Checkout.traverse_discounts(0, each_sku_count).sort_by do |discounted, basket|
+      discounted + Checkout.basic_prices(basket)
+    end
+
+    results.first.first
 
   end
 
@@ -96,10 +100,3 @@ class Checkout
   end
 
 end
-
-
-
-
-
-
-
