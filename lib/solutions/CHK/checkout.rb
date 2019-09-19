@@ -1,6 +1,14 @@
 # noinspection RubyUnusedLocalVariable
 class Checkout
 
+  PRICES =
+    {
+      "A" => 50,
+      "B" => 30,
+      "C" => 20,
+      "D" => 15
+    }
+
   DISCOUNTS =
     {
       "A" => [3, 150],
@@ -28,20 +36,22 @@ class Checkout
   end
 
   def self.single_price(sku)
-    {
-      "A" => 50,
-      "B" => 30,
-      "C" => 20,
-      "D" => 15
-    }[sku]
+    PRICES[sku]
   end
 
   def self.discount(sku)
     DISCOUNTS[sku]
   end
 
+  def self.discount_basket(basket_)
+    basket = basket_.clone
+    DISCOUNTS.each do |sku, number, total|
+    end
+  end
+
 
 end
+
 
 
 
