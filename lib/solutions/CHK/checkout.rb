@@ -26,7 +26,7 @@ class Checkout
 
     puts each_sku_count
 
-    price_after_discounts, remaining_products = self.discount_basket each_sku_count
+    price_after_discounts, remaining_products = Checkout.discount_basket each_sku_count
 
     return 0
   end
@@ -43,14 +43,21 @@ class Checkout
     DISCOUNTS[sku]
   end
 
-  def self.discount_basket(basket_)
-    basket = basket_.clone
-    DISCOUNTS.each do |sku, number, total|
+  def self.discount_basket(basket)
+    discounted_total = 0
+    leftovers = {}
+    basket.each do |sku, count|
+      DISCOUNTS.fetch(sku) do |num_for_discount, discount_total|
+      leftovers[sku] = count.modulo num_for_discount
+      discounted_total =
+        discounted_total + (count.div(num_for_discount) * discount_total)
+      end
     end
   end
 
 
 end
+
 
 
 
