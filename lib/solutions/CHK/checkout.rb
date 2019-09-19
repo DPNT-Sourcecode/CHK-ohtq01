@@ -8,21 +8,20 @@ class Checkout
   end
 
   def self.valid_sku?(sku)
+    ("A".."D").include? sku
+  end
 
-    case sku
-      when "A"
-        true
-      when "B"
-        true
-      when "C"
-        true
-      when "D"
-        true
-    end
-    false
+  def self.single_price(sku)
+    {
+      "A" => 50,
+      "B" => 30,
+      "C" => 20,
+      "D" => 15
+    }[sku]
   end
 
 end
+
 
 
 
