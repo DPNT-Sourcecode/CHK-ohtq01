@@ -28,8 +28,11 @@ class Checkout
       each_sku_count[sku] = each_sku_count[sku] + 1
     end
 
-    Checkout.traverse_discounts(0, each_sku_count).map(&:first).min
+    best_solution = Checkout.traverse_discounts(0, each_sku_count).min_by do |total, remaining_basket|
+      total + Checkout.basic_price(remaining_basket)
+    end
 
+    best_solution
   end
 
   def self.valid_sku?(sku)
@@ -42,6 +45,14 @@ class Checkout
 
   def self.discount(sku)
     DISCOUNTS[sku]
+  end
+
+  def self.basic_price(basket)
+    total = 0
+    basket.each_pair do |sku, count|
+      total = total + (PRICES[sku] * count)
+    end
+    total
   end
 
   def self.apply_discount(discount, basket)
@@ -79,7 +90,7 @@ class Checkout
       if basket.empty? then
         [[total, basket]]
       else
-        self.traverse_discounts(total, basket)
+        [[total, basket]] + self.traverse_discounts(total, basket)
       end
     end
 
@@ -88,6 +99,7 @@ class Checkout
   end
 
 end
+
 
 
 
