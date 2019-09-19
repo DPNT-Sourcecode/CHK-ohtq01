@@ -5,8 +5,13 @@ class Checkout
     return -1 unless skus.is_a? String
     return -1 unless skus.each_char.all? {|sku| Checkout.valid_sku? sku }
 
-    each_sku_count = skus.each_char.group
+    each_sku_count = skus.each_char.reduce(Hash.new(0)) do |hash, sku|
+      hash[sku] = hash[sku] + 1
+    end
 
+    puts each_sku_count
+
+    return 0
   end
 
   def self.valid_sku?(sku)
@@ -30,4 +35,5 @@ class Checkout
   end
 
 end
+
 
