@@ -25,7 +25,7 @@ class Checkout
       each_sku_count[sku] = each_sku_count[sku] + 1
     end
 
-    price_after_discounting, remaining_products = Checkout.traverse_baskets each_sku_count
+    price_after_discounting, remaining_products = Checkout.traverse_discounts 0, each_sku_count
 
     total_base_prices = remaining_products.each.reduce(0) do |acc, val|
       sku, count = val
@@ -48,12 +48,11 @@ class Checkout
   end
 
   def self.apply_discount(discount, basket)
-    reduced_basket = {}
-    discount_hash = discount.each_char.inject(Hash.new(0)) do |acc, c|
-      acc[c] = acc[c] + 1
+    reduced_basket = basket.clone
+    discount.each_char.each do |c|
+      reduced_basket[c] = reduced_basket[c] - 1
     end
     puts discount_hash
-
   end
 
   def self.traverse_discounts(total, basket)
@@ -75,5 +74,6 @@ class Checkout
 
 
 end
+
 
 
