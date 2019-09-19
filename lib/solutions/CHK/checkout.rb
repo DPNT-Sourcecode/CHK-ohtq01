@@ -67,9 +67,14 @@ class Checkout
       end
     end
 
-    options = applieds.reject{|v| v.nil?}.flat_map do |total, basket|
+
+    valid_options = applieds.reject{|v| v.nil?}
+
+    puts valid_options.inspect
+
+    options = valid_options.flat_map do |total, basket|
       if basket.empty? then
-        basket
+        [[total, basket]]
       else
         self.traverse_discounts(total, basket)
       end
@@ -83,6 +88,7 @@ class Checkout
 
 
 end
+
 
 
 
