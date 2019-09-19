@@ -33,7 +33,7 @@ class Checkout
   end
 
   def self.valid_sku?(sku)
-    ("A".."D").include? sku
+    ("A".."E").include? sku
   end
 
   def self.single_price(sku)
@@ -88,5 +88,6 @@ class Checkout
   end
 
 end
+
 
 
