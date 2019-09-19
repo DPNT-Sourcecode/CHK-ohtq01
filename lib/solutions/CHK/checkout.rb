@@ -8,9 +8,13 @@ class Checkout
       "C" => 20,
       "D" => 15,
       "E" => 40
+    }
+
+  DISCOUNTS =
+    {
       "AAA" => 130,
       "BB" => 45
-    }
+    }.merge(PRICES)
 
   def checkout(skus)
     return -1 unless skus.is_a? String
@@ -80,3 +84,4 @@ class Checkout
 
 
 end
+
