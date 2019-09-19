@@ -16,7 +16,9 @@ class ClientTest < Minitest::Test
     assert_equal 100, Checkout.new.checkout("ABC"), "Checkout with ABC should cost 100"
 
     assert_equal 150, Checkout.new.checkout("AAAC"), "Checkout with AAAC should cost 150"
+    assert_equal 220, Checkout.new.checkout("AAAAAC"), "Checkout with AAAC should cost 220"
     assert_equal 175, Checkout.new.checkout("ABABA"), "Checkout with ABABA should cost 175"
+    assert_equal 80, Checkout.new.checkout("EEB"), "Checkout with EEB should cost 80"
 
 
     assert_equal Checkout.new.checkout("ABABA"), Checkout.new.checkout("AAABB"), "Reordering basket items shouldn't affect the price"
@@ -47,4 +49,9 @@ class ClientTest < Minitest::Test
     assert_equal 130, Checkout.discount("AAA"), "Discount on As should be 3 for 130"
   end
 
+  def test_traverse_discounts
+    assert_equal [[20, {}],
+  end
+
 end
+

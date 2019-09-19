@@ -13,7 +13,9 @@ class Checkout
   DISCOUNTS =
     {
       "AAA" => 130,
-      "BB" => 45
+      "AAAAA" => 200,
+      "BB" => 45,
+      "EEB" => 80
     }.merge(PRICES)
 
   def checkout(skus)
@@ -47,8 +49,11 @@ class Checkout
     discount.each_char.each do |c|
       reduced_basket[c] = reduced_basket[c] - 1
     end
+
+    # remove all products which we now have none of
     reduced_basket.delete_if do |k, v| v == 0 end
-    # puts reduced_basket.inspect
+
+
     if reduced_basket.values.all? { |v| v >= 0 } then
       reduced_basket
     else
@@ -59,15 +64,17 @@ class Checkout
   def self.traverse_discounts(total, basket)
 
     applieds = DISCOUNTS.map do |discount, val|
-      # if this discount is applicable, remove the products and recurse
+      # if this discount is applicable, remove the products and
+      #   add the price of the discount to the total
 
       if new_basket = self.apply_discount(discount, basket) then
-        # puts [val, new_basket].inspect
         [total + val, new_basket]
       else nil
       end
     end
 
+    # drop all the invalid discounts we tried to apply and
+    #   and then recurse
     options = applieds.reject{|v| v.nil?}.flat_map do |total, basket|
       if basket.empty? then
         [[total, basket]]
@@ -76,14 +83,10 @@ class Checkout
       end
     end
 
-    # puts options.inspect
-
     options
 
   end
 
-  def self.repeated
-
-
 end
+
 
