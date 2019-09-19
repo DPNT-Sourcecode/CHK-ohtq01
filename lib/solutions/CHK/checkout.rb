@@ -11,7 +11,7 @@ class Checkout
 
   DISCOUNTS =
     {
-      "A" => [3, 150],
+      "A" => [3, 130],
       "B" => [2, 45]
     }
 
@@ -52,12 +52,13 @@ class Checkout
     discounted_total = 0
     leftovers = {}
     basket.each do |sku, count|
-      puts [sku, count].inspect
       if discount = DISCOUNTS[sku] then
-        puts discount.inspect
         num_for_discount, discount_total = discount
+        puts "Discounting: ", [sku, count, num_for_discount, discount_total].inspect
         leftovers[sku] = count.modulo num_for_discount
         discounted_total = discounted_total + (count.div(num_for_discount) * discount_total)
+      else
+        leftovers[sku] = count
       end
     end
     [discounted_total, leftovers]
@@ -65,4 +66,5 @@ class Checkout
 
 
 end
+
 
