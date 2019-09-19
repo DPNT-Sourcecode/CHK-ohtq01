@@ -1,6 +1,12 @@
 # noinspection RubyUnusedLocalVariable
 class Checkout
 
+  DISCOUNTS =
+    {
+      "A" => [3, 150],
+      "B" => [2, 45]
+    }
+
   def checkout(skus)
     return -1 unless skus.is_a? String
     return -1 unless skus.each_char.all? {|sku| Checkout.valid_sku? sku }
@@ -11,6 +17,8 @@ class Checkout
     end
 
     puts each_sku_count
+
+    price_after_discounts, remaining_products = self.discount_basket each_sku_count
 
     return 0
   end
@@ -29,13 +37,12 @@ class Checkout
   end
 
   def self.discount(sku)
-    {
-      "A" => [3, 150],
-      "B" => [2, 45]
-    }[sku]
+    DISCOUNTS[sku]
   end
 
+
 end
+
 
 
 
