@@ -79,7 +79,7 @@ class Checkout
       if basket.empty? then
         [[total, basket]]
       else
-        self.traverse_discounts(total, basket)
+        self.traverse_discounts(total, basket) || [[total, basket]]
       end
     end
 
@@ -88,6 +88,7 @@ class Checkout
   end
 
 end
+
 
 
 
