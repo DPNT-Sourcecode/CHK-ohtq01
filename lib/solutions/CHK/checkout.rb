@@ -32,6 +32,8 @@ class Checkout
       discounted + Checkout.basic_prices(basket)
     end
 
+    puts results.inspect
+
     results.first.first
 
   end
@@ -100,3 +102,4 @@ class Checkout
   end
 
 end
+
