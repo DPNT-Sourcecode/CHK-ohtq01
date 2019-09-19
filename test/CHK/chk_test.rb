@@ -37,6 +37,12 @@ class ClientTest < Minitest::Test
     assert_equal nil, Checkout.single_price("Q"), "Invalid sku should return nil price"
   end
 
+  def test_apply_discount
+    assert_equal({}, Checkout.apply_discount("A", {"A" => 1}))
+    assert_equal({}, Checkout.apply_discount("AAA", {"A" => 3}))
+    assert_equal({"B" => 2}, Checkout.apply_discount("AAA", {"A" => 3, "B" => 2}))
+  end
+
   def test_discounts
     assert_equal 130, Checkout.discount("AAA"), "Discount on As should be 3 for 130"
   end
