@@ -47,6 +47,7 @@ class Checkout
     discount.each_char.each do |c|
       reduced_basket[c] = reduced_basket[c] - 1
     end
+    reduced_basket.delete_if do |k, v| v == 0 end
     if reduced_basket.values.all? { |v| v >= 0 } then
       reduced_basket
     else
@@ -65,7 +66,7 @@ class Checkout
       end
     end
 
-    puts applieds.reject(:&nil?).inspect
+    puts applieds.reject{|v| v.nil?}.inspect
 
     return [0, {}]
 
@@ -73,6 +74,7 @@ class Checkout
 
 
 end
+
 
 
 
