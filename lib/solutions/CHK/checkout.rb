@@ -4,7 +4,11 @@ class Checkout
   def checkout(skus)
     return -1 unless skus.is_a? String
     return -1 unless skus.each_char.all? {|sku| Checkout.valid_sku? sku }
-    return 0
+
+    skus.each_char.reduce 0 do |acc, sku|
+      acc + Checkout.single_price sku
+    end
+
   end
 
   def self.valid_sku?(sku)
@@ -20,7 +24,7 @@ class Checkout
     }[sku]
   end
 
-  def self.discounts(sku)
+  def self.discount(sku)
     {
       "A" => [3, 150],
       "B" => [2, 45]
@@ -28,9 +32,3 @@ class Checkout
   end
 
 end
-
-
-
-
-
-
