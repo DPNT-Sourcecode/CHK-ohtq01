@@ -32,9 +32,11 @@ class Checkout
       discounted + Checkout.basic_prices(basket)
     end
 
-    puts results.inspect
-
-    results.first.first
+    if results.empty? then
+      Checkout.basic_prices(each_sku_count)
+    else
+      results.first.first
+    end
 
   end
 
@@ -93,7 +95,12 @@ class Checkout
       if basket.empty? then
         [[total, basket]]
       else
-        self.traverse_discounts(total, basket) || [[total, basket]]
+        rest = self.traverse_discounts(total, basket)
+        if rest.empty? then
+          [[total, basket]]
+        else
+          rest
+        end
       end
     end
 
@@ -102,4 +109,5 @@ class Checkout
   end
 
 end
+
 
