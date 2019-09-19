@@ -6,13 +6,14 @@ class Checkout
       "A" => 50,
       "B" => 30,
       "C" => 20,
-      "D" => 15
+      "D" => 15,
+      "E" => 40
     }
 
   DISCOUNTS =
     {
-      "A" => [3, 130],
-      "B" => [2, 45]
+      "AAA" => 130,
+      "BB" => 45
     }
 
   def checkout(skus)
@@ -63,6 +64,7 @@ class Checkout
 
 
 end
+
 
 
 

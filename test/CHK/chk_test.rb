@@ -38,9 +38,10 @@ class ClientTest < Minitest::Test
   end
 
   def test_discounts
-    assert_equal [3, 130], Checkout.discount("A"), "Discount on As should be 3 for 130"
+    assert_equal 130, Checkout.discount("AAA"), "Discount on As should be 3 for 130"
   end
 
 end
+
 
 
