@@ -44,6 +44,14 @@ class Checkout
     DISCOUNTS[sku]
   end
 
+  def self.basic_prices(basket)
+    total = 0
+    basket.each_pair do |k, v|
+      total = total + (PRICES[k] * v)
+    end
+    total
+  end
+
   def self.apply_discount(discount, basket)
     reduced_basket = basket.clone
     discount.each_char.each do |c|
@@ -88,6 +96,7 @@ class Checkout
   end
 
 end
+
 
 
 
