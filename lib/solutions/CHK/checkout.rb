@@ -48,7 +48,7 @@ class Checkout
       reduced_basket[c] = reduced_basket[c] - 1
     end
     reduced_basket.delete_if do |k, v| v == 0 end
-    puts reduced_basket.inspect
+    # puts reduced_basket.inspect
     if reduced_basket.values.all? { |v| v >= 0 } then
       reduced_basket
     else
@@ -63,7 +63,7 @@ class Checkout
 
       if new_basket = self.apply_discount(discount, basket) then
         # puts [val, new_basket].inspect
-        [val, new_basket]
+        [total + val, new_basket]
       else nil
       end
     end
@@ -82,5 +82,8 @@ class Checkout
 
   end
 
+  def self.repeated
+
 
 end
+
