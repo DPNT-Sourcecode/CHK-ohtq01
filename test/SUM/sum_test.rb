@@ -10,6 +10,8 @@ class ClientTest < Minitest::Test
 
   def test_sum
     assert_equal 3, Sum.new.sum(1, 2), 'App should add two numbers'
+    assert_equal 0, Sum.new.sum(0, 0), "zero plus zero should be zero"
   end
 
 end
+
