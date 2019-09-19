@@ -20,7 +20,15 @@ class Checkout
     }[sku]
   end
 
+  def self.discounts(sku)
+    {
+      "A" => [3, 150],
+      "B" => [2, 45]
+    }[sku]
+  end
+
 end
+
 
 
 
