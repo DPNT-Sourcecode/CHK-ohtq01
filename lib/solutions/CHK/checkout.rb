@@ -26,9 +26,8 @@ class Checkout
       each_sku_count[sku] = each_sku_count[sku] + 1
     end
 
-    puts Checkout.traverse_discounts(0, each_sku_count)
+    Checkout.traverse_discounts(0, each_sku_count).map(&:first).min
 
-    # return price
   end
 
   def self.valid_sku?(sku)
@@ -67,12 +66,7 @@ class Checkout
       end
     end
 
-
-    valid_options = applieds.reject{|v| v.nil?}
-
-    puts valid_options.inspect
-
-    options = valid_options.flat_map do |total, basket|
+    options = applieds.reject{|v| v.nil?}.flat_map do |total, basket|
       if basket.empty? then
         [[total, basket]]
       else
@@ -82,12 +76,13 @@ class Checkout
 
     puts options.inspect
 
-    # return [0, {}]
+    options
 
   end
 
 
 end
+
 
 
 
