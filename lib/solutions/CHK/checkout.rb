@@ -5,9 +5,7 @@ class Checkout
     return -1 unless skus.is_a? String
     return -1 unless skus.each_char.all? {|sku| Checkout.valid_sku? sku }
 
-    skus.each_char.reduce 0 do |acc, sku|
-      acc + Checkout.single_price sku
-    end
+    each_sku_count = skus.each_char.group
 
   end
 
@@ -32,3 +30,4 @@ class Checkout
   end
 
 end
+
