@@ -24,16 +24,12 @@ class Checkout
       each_sku_count[sku] = each_sku_count[sku] + 1
     end
 
-    puts each_sku_count
-
     price_after_discounting, remaining_products = Checkout.discount_basket each_sku_count
 
-    puts price_after_discounting
     total_base_prices = remaining_products.each.reduce(0) do |acc, sku, count|
       acc + (Checkout.single_price(sku) * count)
     end
 
-    puts total_base_prices
 
     return price_after_discounting + total_base_prices
   end
@@ -54,16 +50,20 @@ class Checkout
     discounted_total = 0
     leftovers = {}
     basket.each do |sku, count|
+      puts [sku, count].inspect
       DISCOUNTS.fetch(sku) do |num_for_discount, discount_total|
-      leftovers[sku] = count.modulo num_for_discount
-      discounted_total = discounted_total + (count.div(num_for_discount) * discount_total)
+        leftovers[sku] = count.modulo num_for_discount
+        discounted_total = discounted_total + (count.div(num_for_discount) * discount_total)
+        # puts num_for_discount, discount_total, leftovers
       end
     end
+    # puts leftovers
     [discounted_total, leftovers]
   end
 
 
 end
+
 
 
 
