@@ -25,7 +25,7 @@ class Checkout
       each_sku_count[sku] = each_sku_count[sku] + 1
     end
 
-    price_after_discounting, remaining_products = Checkout.discount_basket each_sku_count
+    price_after_discounting, remaining_products = Checkout.traverse_baskets each_sku_count
 
     total_base_prices = remaining_products.each.reduce(0) do |acc, val|
       sku, count = val
@@ -47,41 +47,33 @@ class Checkout
     DISCOUNTS[sku]
   end
 
-
-  def self.discount_basket(basket)
-    discounted_total = 0
-    leftovers = {}
-
-    DISCOUNTS.map do |prods, val|
-      puts [prods, val].inspect
-      if self.apply_discount prods, basket then
-        [
-      end
-    end
-    # basket.each do |sku, count|
-
-    #   if discount = DISCOUNTS[sku] then
-    #     num_for_discount, discount_total = discount
-    #     leftovers[sku] = count.modulo num_for_discount
-    #     discounted_total = discounted_total + (count.div(num_for_discount) * discount_total)
-    #   else
-    #     leftovers[sku] = count
-    #   end
-    # end
-    [discounted_total, leftovers]
-  end
-
   def self.apply_discount(discount, basket)
-    reduced_basket = 0
+    reduced_basket = {}
     discount_hash = discount.each_char.inject(Hash.new(0)) do |acc, c|
       acc[c] = acc[c] + 1
     end
-
     puts discount_hash
 
+  end
+
+  def self.traverse_discounts(total, basket)
+
+    applieds = DISCOUNTS.map do |discount, val|
+      # if this discount is applicable, remove the products and recurse
+
+      if new_basket = self.apply_discount(discount, basket) then
+        [val, new_basket]
+      else nil
+      end
+    end
+
+    puts applieds
+
+    return [0, {}]
 
   end
 
 
 end
+
 
