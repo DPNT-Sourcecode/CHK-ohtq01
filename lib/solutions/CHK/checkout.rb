@@ -2,7 +2,9 @@
 class Checkout
 
   def checkout(skus)
-    raise 'Not implemented'
+    return -1 unless skus.is_a? String
+    return 0
   end
 
 end
+
