@@ -8,10 +8,6 @@ class Checkout
       "C" => 20,
       "D" => 15,
       "E" => 40
-    }
-
-  DISCOUNTS =
-    {
       "AAA" => 130,
       "BB" => 45
     }
@@ -54,6 +50,9 @@ class Checkout
 
     DISCOUNTS.map do |prods, val|
       puts [prods, val].inspect
+      if self.apply_discount prods, basket then
+        [
+      end
     end
     # basket.each do |sku, count|
 
@@ -68,10 +67,16 @@ class Checkout
     [discounted_total, leftovers]
   end
 
+  def self.apply_discount(discount, basket)
+    reduced_basket = 0
+    discount_hash = discount.each_char.inject(Hash.new(0)) do |acc, c|
+      acc[c] = acc[c] + 1
+    end
+
+    puts discount_hash
+
+
+  end
+
 
 end
-
-
-
-
-
