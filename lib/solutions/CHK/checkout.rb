@@ -142,26 +142,25 @@ class Checkout
 
 
   def self.traverse_discounts(total, basket)
-
     applieds = DISCOUNTS.map do |discount, val|
       # if this discount is applicable, remove the products and
       #   add the price of the discount to the total
 
       if new_basket = self.apply_discount(discount, basket) then
-        [total + val, new_basket]
+        [val, new_basket]
       else nil
       end
     end
 
     # drop all the invalid discounts we tried to apply and
     #   and then recurse
-    options = applieds.reject{|v| v.nil?}.flat_map do |total, basket|
+    options = applieds.reject{|v| v.nil?}.flat_map do |val, basket|
       if basket.empty? then
-        [[total, basket]]
+        [[total + val, basket]]
       else
-        rest = self.traverse_discounts(total, basket)
+        rest = self.traverse_discounts(total + val, basket)
         if rest.empty? then
-          [[total, basket]]
+          [[total + val, basket]]
         else
           rest
         end
@@ -173,6 +172,7 @@ class Checkout
   end
 
 end
+
 
 
 
