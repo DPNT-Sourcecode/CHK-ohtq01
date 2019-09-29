@@ -169,6 +169,7 @@ class Checkout
           end
         end
       end
+      options = options.group_by{ |val, basket| basket }.map(&:first)
       Checkout::PRICING_CACHE[basket] = options
     end
 
@@ -179,3 +180,4 @@ class Checkout
   end
 
 end
+
