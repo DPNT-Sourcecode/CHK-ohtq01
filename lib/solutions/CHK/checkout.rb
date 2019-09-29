@@ -64,7 +64,7 @@ class Checkout
       each_sku_count[sku] = each_sku_count[sku] + 1
     end
 
-    results = Checkout.traverse_discounts(0, each_sku_count).sort_by do |discounted, basket|
+    results = Checkout.traverse_discounts(Checkout::DISCOUNTS, 0, each_sku_count).sort_by do |discounted, basket|
       discounted + Checkout.basic_prices(basket)
     end
 
@@ -113,15 +113,17 @@ class Checkout
     end
   end
 
-  def self.traverse_discounts(total, basket)
+  def self.traverse_discounts(all_discounts, total, basket)
     options = Checkout::PRICING_CACHE[basket]
     # puts options.inspect
     if options.nil? then
-      applieds = DISCOUNTS.map do |discount, val|
+      successful_discounts = []
+      applieds = all_discounts.map do |discount, val|
         # if this discount is applicable, remove the products and
         #   add the price of the discount to the total
 
         if new_basket = self.apply_discount(discount, basket) then
+          successful_discounts.push [discount, val]
           [val, new_basket]
         else nil
         end
@@ -133,7 +135,7 @@ class Checkout
         if basket.empty? then
           [[val, basket]]
         else
-          rest = self.traverse_discounts(val, basket)
+          rest = self.traverse_discounts(successful_discounts, val, basket)
           if rest.empty? then
             [[val, basket]]
           else
@@ -154,5 +156,6 @@ class Checkout
   end
 
 end
+
 
 
