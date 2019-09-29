@@ -139,9 +139,3 @@ class Checkout
   end
 
 end
-
-
-
-
-
-
