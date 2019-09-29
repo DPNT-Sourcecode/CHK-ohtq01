@@ -143,6 +143,7 @@ class Checkout
 
   def self.traverse_discounts(total, basket)
     options = Checkout::PRICING_CACHE[basket]
+    puts options.inspect
     if options.nil? then
       applieds = DISCOUNTS.map do |discount, val|
         # if this discount is applicable, remove the products and
@@ -178,9 +179,3 @@ class Checkout
   end
 
 end
-
-
-
-
-
-
