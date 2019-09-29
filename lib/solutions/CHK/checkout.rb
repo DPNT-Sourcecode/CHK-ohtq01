@@ -169,7 +169,9 @@ class Checkout
           end
         end
       end
-      options = options.group_by{ |val, basket| basket }.map(&:first)
+      puts options
+      options = options.group_by{ |val, basket| basket.hash }.map{|a| a[1].min_by(&:first)}
+      puts options.inspect
       Checkout::PRICING_CACHE[basket] = options
     end
 
@@ -180,4 +182,5 @@ class Checkout
   end
 
 end
+
 
