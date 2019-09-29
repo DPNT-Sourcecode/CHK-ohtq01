@@ -113,36 +113,6 @@ class Checkout
     end
   end
 
-  def self.dfs_loop_discounts(basket)
-    stack = [[0, basket]]
-    results = []
-    # best_total = Float::INFINITY
-
-    while !stack.empty?
-      puts stack.map(&:inspect).inspect
-      sleep 1
-      current_total, this_basket = stack.pop
-      DISCOUNTS.each do |discount, val|
-        puts discount, val
-        new_basket = self.apply_discount(discount, basket)
-        puts "New Basket is: #{new_basket.inspect}"
-
-        if new_basket then
-          if new_basket.empty? then
-            puts "basket is empty!"
-            results.push(current_total + val)
-            puts stack
-          else
-            stack.push [current_total + val, new_basket]
-          end
-        end
-      end
-    end
-
-    results
-  end
-
-
   def self.traverse_discounts(total, basket)
     options = Checkout::PRICING_CACHE[basket]
     # puts options.inspect
@@ -184,6 +154,7 @@ class Checkout
   end
 
 end
+
 
 
 

@@ -28,6 +28,8 @@ class ClientTest < Minitest::Test
     assert_equal 80, Checkout.new.checkout("QQQ"), "Checkout with QQQ should cost 80"
     assert_equal 120, Checkout.new.checkout("NNNM"), "Checkout with NNNM should cost 120"
     assert_equal 45, Checkout.new.checkout("SSSSS"), "Checkout with SSSSS should cost 45"
+    assert_equal 45, Checkout.new.checkout("SSSSS"), "Checkout with SSSSS should cost 45"
+    assert_equal 90, Checkout.new.checkout("STXYZSTZYX"), "Checkout with STXYZSTZYX should cost 90"
 
 
     assert_equal Checkout.new.checkout("ABABA"), Checkout.new.checkout("AAABB"), "Reordering basket items shouldn't affect the price"
@@ -37,7 +39,7 @@ class ClientTest < Minitest::Test
 
     # assert_equal 1880, Checkout.new.checkout("LGCKAQXFOSKZGIWHNRNDITVBUUEOZXPYAVFDEPTBMQLYJRSMJCWH"), "Really really big baskets shouldn't cause issues"
     assert_equal 740, Checkout.new.checkout("PPPPQRUVPQRUVPQRUVSU"), "Really really big baskets shouldn't cause issues"
-    assert_equal 125, Checkout.new.checkout("AAAAAPPPPPUUUUEEBRRRQAAAHHHHHHHHHHVVVBBNNNMFFFKKQQQVVHHHHH"), "Really really big baskets shouldn't cause issues"
+    assert_equal 1640, Checkout.new.checkout("AAAAAPPPPPUUUUEEBRRRQAAAHHHHHHHHHHVVVBBNNNMFFFKKQQQVVHHHHH"), "Really really big baskets shouldn't cause issues"
 
 
     assert_equal(-1, Checkout.new.checkout("ABCDEFG0"), "Basket with non-existent products should return -1")
@@ -67,5 +69,6 @@ class ClientTest < Minitest::Test
   end
 
 end
+
 
 
