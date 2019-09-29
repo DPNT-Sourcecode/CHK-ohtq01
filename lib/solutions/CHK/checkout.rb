@@ -156,22 +156,25 @@ class Checkout
     #   and then recurse
     options = applieds.reject{|v| v.nil?}.flat_map do |val, basket|
       if basket.empty? then
-        [[total + val, basket]]
+        [[val, basket]]
       else
-        rest = self.traverse_discounts(total + val, basket)
+        rest = self.traverse_discounts(val, basket)
         if rest.empty? then
-          [[total + val, basket]]
+          [[val, basket]]
         else
           rest
         end
       end
     end
 
-    options
+    options.map do |count, basket|
+      [total + count, basket]
+    end
 
   end
 
 end
+
 
 
 
