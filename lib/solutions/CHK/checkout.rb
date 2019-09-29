@@ -48,7 +48,9 @@ class Checkout
       "UUUU" => 120,
       "VV" => 90,
       "VVV" => 130
-    }
+    }.merge(STXYZ_DISCOUNTS)
+
+  STXYZ_DISCOUNTS = "STXYZ".each_char.to_a.repeated_combination.each.reduce({}, {|acc, val| acc[val] = 45 })
 
   PRICING_CACHE = {}
 
@@ -182,6 +184,7 @@ class Checkout
   end
 
 end
+
 
 
 
