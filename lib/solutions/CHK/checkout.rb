@@ -87,14 +87,18 @@ class Checkout
     # best_total = Float::INFINITY
 
     while !stack.empty?
+      puts stack.map(&:inspect).inspect
+      sleep 1
       current_total, this_basket = stack.pop
       DISCOUNTS.each do |discount, val|
+        puts discount, val
         if new_basket = self.apply_discount(discount, basket) then
-          if new_basket.empty? then
+          puts new_basket.inspect
+          (if new_basket.empty? then
             results.push(current_total + val)
           else
             stack.push [current_total + val, new_basket]
-          end
+          end)
         end
       end
     end
@@ -135,5 +139,6 @@ class Checkout
   end
 
 end
+
 
 
