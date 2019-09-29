@@ -7,7 +7,8 @@ class Checkout
       "B" => 30,
       "C" => 20,
       "D" => 15,
-      "E" => 40
+      "E" => 40,
+      "F" => 10
     }
 
   DISCOUNTS =
@@ -15,7 +16,8 @@ class Checkout
       "AAA" => 130,
       "AAAAA" => 200,
       "BB" => 45,
-      "EEB" => 80
+      "EEB" => 80,
+      "FFF" => 20
     }
 
   def checkout(skus)
@@ -41,7 +43,7 @@ class Checkout
   end
 
   def self.valid_sku?(sku)
-    ("A".."E").include? sku
+    ("A".."F").include? sku
   end
 
   def self.single_price(sku)
@@ -139,3 +141,4 @@ class Checkout
   end
 
 end
+

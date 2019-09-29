@@ -19,13 +19,15 @@ class ClientTest < Minitest::Test
     assert_equal 220, Checkout.new.checkout("AAAAAC"), "Checkout with AAAC should cost 220"
     assert_equal 175, Checkout.new.checkout("ABABA"), "Checkout with ABABA should cost 175"
     assert_equal 80, Checkout.new.checkout("EEB"), "Checkout with EEB should cost 80"
+    assert_equal 20, Checkout.new.checkout("FFF"), "Checkout with FFF should cost 20"
+    assert_equal 20, Checkout.new.checkout("FF"), "Checkout with FF should cost 20"
 
     assert_equal Checkout.new.checkout("ABABA"), Checkout.new.checkout("AAABB"), "Reordering basket items shouldn't affect the price"
 
     assert_equal 455, Checkout.new.checkout("AAAAAEEBAAABB"), "Big baskets shouldn't cause issues"
     assert_equal 900, Checkout.new.checkout("AAAAAEEBAAABBAAAAAEEBAAABB"), "Really big baskets shouldn't cause issues"
 
-    assert_equal(-1, Checkout.new.checkout("ABCDEF"), "Basket with non-existent products should return -1")
+    assert_equal(-1, Checkout.new.checkout("ABCDEFG"), "Basket with non-existent products should return -1")
     assert_equal(-1, Checkout.new.checkout(100), "Non-string basket should return -1")
   end
 
@@ -52,3 +54,4 @@ class ClientTest < Minitest::Test
   end
 
 end
+
