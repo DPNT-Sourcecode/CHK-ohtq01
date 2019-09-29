@@ -28,15 +28,15 @@ class Checkout
       each_sku_count[sku] = each_sku_count[sku] + 1
     end
 
-    results = Checkout.traverse_discounts(0, each_sku_count).sort_by do |discounted, basket|
-      discounted + Checkout.basic_prices(basket)
-    end
+    # results = Checkout.traverse_discounts(0, each_sku_count).sort_by do |discounted, basket|
+    #   discounted + Checkout.basic_prices(basket)
+    # end
 
-    if results.empty? then
-      Checkout.basic_prices(each_sku_count)
-    else
-      results.first.first
-    end
+    # if results.empty? then
+    #   Checkout.basic_prices(each_sku_count)
+    # else
+    #   results.first.first
+    # end
 
   end
 
@@ -77,6 +77,20 @@ class Checkout
     end
   end
 
+  def self.dfs_loop_discounts(basket)
+    stack = [[0, basket]]
+    # best_total = Float::INFINITY
+
+    while !stack.empty?
+      current_total, this_basket = stack.pop
+      DISCOUNTS.each do |discount, val|
+        if new_basket = self.apply_discount(discount, basket) then
+          stack.push [current_total + val, new_basket]
+        end
+      end
+    end
+  end
+
   def self.traverse_discounts(total, basket)
 
     applieds = DISCOUNTS.map do |discount, val|
@@ -109,3 +123,4 @@ class Checkout
   end
 
 end
+
