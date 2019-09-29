@@ -31,6 +31,8 @@ class Checkout
       "Z" => 50
     }
 
+  STXYZ_DISCOUNTS = "STXYZ".each_char.to_a.repeated_combination(5).each.reduce({}) { |acc, val| acc[val.join] = 45; acc }
+
   DISCOUNTS =
     {
       "AAA" => 130,
@@ -49,8 +51,6 @@ class Checkout
       "VV" => 90,
       "VVV" => 130
     }.merge(STXYZ_DISCOUNTS)
-
-  STXYZ_DISCOUNTS = "STXYZ".each_char.to_a.repeated_combination.each.reduce({}, {|acc, val| acc[val] = 45 })
 
   PRICING_CACHE = {}
 
@@ -184,6 +184,7 @@ class Checkout
   end
 
 end
+
 
 
 
