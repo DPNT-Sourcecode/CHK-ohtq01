@@ -92,13 +92,17 @@ class Checkout
       current_total, this_basket = stack.pop
       DISCOUNTS.each do |discount, val|
         puts discount, val
-        if new_basket = self.apply_discount(discount, basket) then
-          puts new_basket.inspect
-          (if new_basket.empty? then
+        new_basket = self.apply_discount(discount, basket)
+        puts "New Basket is: #{new_basket.inspect}"
+
+        if new_basket then
+          if new_basket.empty? then
+            puts "basket is empty!"
             results.push(current_total + val)
+            puts stack
           else
             stack.push [current_total + val, new_basket]
-          end)
+          end
         end
       end
     end
@@ -139,6 +143,7 @@ class Checkout
   end
 
 end
+
 
 
 
