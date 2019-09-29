@@ -42,7 +42,7 @@ class Checkout
       "FFF" => 20,
       "HHHHH" => 45,
       "HHHHHHHHHH" => 80,
-      "KK" => 150,
+      "KK" => 120,
       "NNNM" => 120,
       "PPPPP" => 200,
       "QQQ" => 80,
@@ -113,17 +113,20 @@ class Checkout
     end
   end
 
-  def self.traverse_discounts(total, basket)
+  def self.traverse_discounts(all_discounts, total, basket)
     options = Checkout::PRICING_CACHE[basket]
     # puts options.inspect
     if options.nil? then
-      applieds = DISCOUNTS.map do |discount, val|
+      failed_discounts = []
+      applieds = all_discounts.map do |discount, val|
         # if this discount is applicable, remove the products and
         #   add the price of the discount to the total
 
         if new_basket = self.apply_discount(discount, basket) then
           [val, new_basket]
-        else nil
+        else
+          failed_discounts.push discount
+          nil
         end
       end
 
@@ -154,3 +157,4 @@ class Checkout
   end
 
 end
+
