@@ -16,7 +16,7 @@ class Checkout
       "AAAAA" => 200,
       "BB" => 45,
       "EEB" => 80
-    }.merge(PRICES)
+    }
 
   def checkout(skus)
     return -1 unless skus.is_a? String
@@ -28,19 +28,16 @@ class Checkout
       each_sku_count[sku] = each_sku_count[sku] + 1
     end
 
-    # results = Checkout.traverse_discounts(0, each_sku_count).sort_by do |discounted, basket|
-    #   discounted + Checkout.basic_prices(basket)
-    # end
+    results = Checkout.traverse_discounts(0, each_sku_count).sort_by do |discounted, basket|
+      discounted + Checkout.basic_prices(basket)
+    end
 
-    # if results.empty? then
-    #   Checkout.basic_prices(each_sku_count)
-    # else
-    #   results.first.first
-    # end
-
-    results = Checkout.dfs_loop_discounts each_sku_count
-    print results
-    results.min
+    if results.empty? then
+      Checkout.basic_prices(each_sku_count)
+    else
+      puts results.first
+      results.first[0] + Checkout.basic_prices(results.first[1])
+    end
 
   end
 
@@ -143,6 +140,7 @@ class Checkout
   end
 
 end
+
 
 
 
