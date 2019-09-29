@@ -58,7 +58,7 @@ class Checkout
     return 0 if skus.empty?
 
     each_sku_count = Hash.new 0
-    skus.each_char do |sku|
+    skus.each_char.sort.each do |sku|
       each_sku_count[sku] = each_sku_count[sku] + 1
     end
 
@@ -142,29 +142,33 @@ class Checkout
 
 
   def self.traverse_discounts(total, basket)
-    applieds = DISCOUNTS.map do |discount, val|
-      # if this discount is applicable, remove the products and
-      #   add the price of the discount to the total
+    options = Checkout::PRICING_CACHE[basket]
+    if options.nil? then
+      applieds = DISCOUNTS.map do |discount, val|
+        # if this discount is applicable, remove the products and
+        #   add the price of the discount to the total
 
-      if new_basket = self.apply_discount(discount, basket) then
-        [val, new_basket]
-      else nil
-      end
-    end
-
-    # drop all the invalid discounts we tried to apply and
-    #   and then recurse
-    options = applieds.reject{|v| v.nil?}.flat_map do |val, basket|
-      if basket.empty? then
-        [[val, basket]]
-      else
-        rest = self.traverse_discounts(val, basket)
-        if rest.empty? then
-          [[val, basket]]
-        else
-          rest
+        if new_basket = self.apply_discount(discount, basket) then
+          [val, new_basket]
+        else nil
         end
       end
+
+      # drop all the invalid discounts we tried to apply and
+      #   and then recurse
+      options = applieds.reject{|v| v.nil?}.flat_map do |val, basket|
+        if basket.empty? then
+          [[val, basket]]
+        else
+          rest = self.traverse_discounts(val, basket)
+          if rest.empty? then
+            [[val, basket]]
+          else
+            rest
+          end
+        end
+      end
+      Checkout::PRICING_CACHE[basket] = options
     end
 
     options.map do |count, basket|
@@ -174,6 +178,7 @@ class Checkout
   end
 
 end
+
 
 
 

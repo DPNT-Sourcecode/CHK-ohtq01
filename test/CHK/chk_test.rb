@@ -34,6 +34,9 @@ class ClientTest < Minitest::Test
     assert_equal 455, Checkout.new.checkout("AAAAAEEBAAABB"), "Big baskets shouldn't cause issues"
     assert_equal 900, Checkout.new.checkout("AAAAAEEBAAABBAAAAAEEBAAABB"), "Really big baskets shouldn't cause issues"
 
+    assert_equal 1880, Checkout.new.checkout("LGCKAQXFOSKZGIWHNRNDITVBUUEOZXPYAVFDEPTBMQLYJRSMJCWH"), "Really really big baskets shouldn't cause issues"
+
+
     assert_equal(-1, Checkout.new.checkout("ABCDEFG0"), "Basket with non-existent products should return -1")
     assert_equal(-1, Checkout.new.checkout(100), "Non-string basket should return -1")
   end
@@ -61,6 +64,7 @@ class ClientTest < Minitest::Test
   end
 
 end
+
 
 
 
