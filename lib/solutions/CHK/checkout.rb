@@ -35,7 +35,6 @@ class Checkout
     if results.empty? then
       Checkout.basic_prices(each_sku_count)
     else
-      puts results.first
       results.first[0] + Checkout.basic_prices(results.first[1])
     end
 
@@ -140,6 +139,7 @@ class Checkout
   end
 
 end
+
 
 
 
