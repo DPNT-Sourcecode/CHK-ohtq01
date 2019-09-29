@@ -21,6 +21,13 @@ class ClientTest < Minitest::Test
     assert_equal 80, Checkout.new.checkout("EEB"), "Checkout with EEB should cost 80"
     assert_equal 20, Checkout.new.checkout("FFF"), "Checkout with FFF should cost 20"
     assert_equal 20, Checkout.new.checkout("FF"), "Checkout with FF should cost 20"
+    assert_equal 90, Checkout.new.checkout("VV"), "Checkout with VV should cost 90"
+    assert_equal 130, Checkout.new.checkout("VVV"), "Checkout with VVV should cost 130"
+    assert_equal 150, Checkout.new.checkout("RRRQ"), "Checkout with RRRQ should cost 150"
+    assert_equal 45, Checkout.new.checkout("HHHHH"), "Checkout with HHHHH should cost 45"
+    assert_equal 80, Checkout.new.checkout("QQQ"), "Checkout with QQQ should cost 80"
+    assert_equal 120, Checkout.new.checkout("NNNM"), "Checkout with NNNM should cost 120"
+
 
     assert_equal Checkout.new.checkout("ABABA"), Checkout.new.checkout("AAABB"), "Reordering basket items shouldn't affect the price"
 
@@ -54,5 +61,6 @@ class ClientTest < Minitest::Test
   end
 
 end
+
 
 

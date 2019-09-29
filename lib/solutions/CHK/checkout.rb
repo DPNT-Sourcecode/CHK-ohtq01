@@ -50,6 +50,8 @@ class Checkout
       "VVV" => 130
     }
 
+  PRICING_CACHE = {}
+
   def checkout(skus)
     return -1 unless skus.is_a? String
     return -1 unless skus.each_char.all? {|sku| Checkout.valid_sku? sku }
@@ -73,7 +75,7 @@ class Checkout
   end
 
   def self.valid_sku?(sku)
-    ("A".."F").include? sku
+    ("A".."Z").include? sku
   end
 
   def self.single_price(sku)
@@ -171,5 +173,6 @@ class Checkout
   end
 
 end
+
 
 
