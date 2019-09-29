@@ -27,20 +27,20 @@ class ClientTest < Minitest::Test
     assert_equal 455, Checkout.new.checkout("AAAAAEEBAAABB"), "Big baskets shouldn't cause issues"
     assert_equal 900, Checkout.new.checkout("AAAAAEEBAAABBAAAAAEEBAAABB"), "Really big baskets shouldn't cause issues"
 
-    assert_equal(-1, Checkout.new.checkout("ABCDEFG"), "Basket with non-existent products should return -1")
+    assert_equal(-1, Checkout.new.checkout("ABCDEFG0"), "Basket with non-existent products should return -1")
     assert_equal(-1, Checkout.new.checkout(100), "Non-string basket should return -1")
   end
 
   def test_valid_sku?
     assert_equal true, Checkout.valid_sku?("A"), "A is a valid sku"
-    assert_equal false, Checkout.valid_sku?("Q"), "Q is not a valid sku"
+    assert_equal false, Checkout.valid_sku?("0"), "0 is not a valid sku"
   end
 
   def test_prices
     assert_equal 50, Checkout.single_price("A"), "One A should cost 50"
     assert_equal 30, Checkout.single_price("B"), "One B should cost 30"
 
-    assert_equal nil, Checkout.single_price("Q"), "Invalid sku should return nil price"
+    assert_equal nil, Checkout.single_price("0"), "Invalid sku should return nil price"
   end
 
   def test_apply_discount
@@ -54,4 +54,5 @@ class ClientTest < Minitest::Test
   end
 
 end
+
 
