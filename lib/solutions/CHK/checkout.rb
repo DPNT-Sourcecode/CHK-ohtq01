@@ -143,7 +143,7 @@ class Checkout
 
   def self.traverse_discounts(total, basket)
     options = Checkout::PRICING_CACHE[basket]
-    puts options.inspect
+    # puts options.inspect
     if options.nil? then
       applieds = DISCOUNTS.map do |discount, val|
         # if this discount is applicable, remove the products and
@@ -169,9 +169,9 @@ class Checkout
           end
         end
       end
-      puts options
+      # puts options
       options = options.group_by{ |val, basket| basket.hash }.map{|a| a[1].min_by(&:first)}
-      puts options.inspect
+      # puts options.inspect
       Checkout::PRICING_CACHE[basket] = options
     end
 
@@ -182,5 +182,6 @@ class Checkout
   end
 
 end
+
 
 
