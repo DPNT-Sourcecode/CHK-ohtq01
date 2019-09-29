@@ -38,6 +38,10 @@ class Checkout
     #   results.first.first
     # end
 
+    results = Checkout.dfs_loop_discounts each_sku_count
+    print results
+    results.min
+
   end
 
   def self.valid_sku?(sku)
@@ -79,17 +83,25 @@ class Checkout
 
   def self.dfs_loop_discounts(basket)
     stack = [[0, basket]]
+    results = []
     # best_total = Float::INFINITY
 
     while !stack.empty?
       current_total, this_basket = stack.pop
       DISCOUNTS.each do |discount, val|
         if new_basket = self.apply_discount(discount, basket) then
-          stack.push [current_total + val, new_basket]
+          if new_basket.empty? then
+            results.push(current_total + val)
+          else
+            stack.push [current_total + val, new_basket]
+          end
         end
       end
     end
+
+    results
   end
+
 
   def self.traverse_discounts(total, basket)
 
@@ -123,4 +135,5 @@ class Checkout
   end
 
 end
+
 
