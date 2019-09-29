@@ -31,7 +31,7 @@ class Checkout
       "Z" => 21
     }
 
-  STXYZ_DISCOUNTS = "STXYZ".each_char.to_a.repeated_combination(5).each.reduce({}) { |acc, val| acc[val.join] = 45; acc }
+  STXYZ_DISCOUNTS = "STXYZ".each_char.to_a.repeated_combination(3).each.reduce({}) { |acc, val| acc[val.join] = 45; acc }
 
   DISCOUNTS =
     {
@@ -156,6 +156,7 @@ class Checkout
   end
 
 end
+
 
 
 

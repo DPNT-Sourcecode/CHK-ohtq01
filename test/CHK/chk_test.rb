@@ -27,9 +27,8 @@ class ClientTest < Minitest::Test
     assert_equal 45, Checkout.new.checkout("HHHHH"), "Checkout with HHHHH should cost 45"
     assert_equal 80, Checkout.new.checkout("QQQ"), "Checkout with QQQ should cost 80"
     assert_equal 120, Checkout.new.checkout("NNNM"), "Checkout with NNNM should cost 120"
-    assert_equal 45, Checkout.new.checkout("SSSSS"), "Checkout with SSSSS should cost 45"
-    assert_equal 45, Checkout.new.checkout("SSSSS"), "Checkout with SSSSS should cost 45"
-    assert_equal 90, Checkout.new.checkout("STXYZSTZYX"), "Checkout with STXYZSTZYX should cost 90"
+    assert_equal 45, Checkout.new.checkout("SSS"), "Checkout with SSS should cost 45"
+    assert_equal 90, Checkout.new.checkout("STXYZS"), "Checkout with STXYZS should cost 90"
     assert_equal 120, Checkout.new.checkout("KK"), "Checkout with KK should cost 120"
     assert_equal 190, Checkout.new.checkout("KKK"), "Checkout with KKK should cost 190"
     assert_equal 240, Checkout.new.checkout("KKKK"), "Checkout with KKKK should cost 240"
@@ -72,4 +71,5 @@ class ClientTest < Minitest::Test
   end
 
 end
+
 
