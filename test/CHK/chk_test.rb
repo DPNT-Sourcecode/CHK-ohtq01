@@ -38,7 +38,7 @@ class ClientTest < Minitest::Test
     assert_equal 900, Checkout.new.checkout("AAAAAEEBAAABBAAAAAEEBAAABB"), "Really big baskets shouldn't cause issues"
 
     # assert_equal 1880, Checkout.new.checkout("LGCKAQXFOSKZGIWHNRNDITVBUUEOZXPYAVFDEPTBMQLYJRSMJCWH"), "Really really big baskets shouldn't cause issues"
-    assert_equal 740, Checkout.new.checkout("PPPPQRUVPQRUVPQRUVSU"), "Really really big baskets shouldn't cause issues"
+    assert_equal 730, Checkout.new.checkout("PPPPQRUVPQRUVPQRUVSU"), "Really really big baskets shouldn't cause issues"
     assert_equal 1640, Checkout.new.checkout("AAAAAPPPPPUUUUEEBRRRQAAAHHHHHHHHHHVVVBBNNNMFFFKKQQQVVHHHHH"), "Really really big baskets shouldn't cause issues"
 
 
@@ -69,6 +69,3 @@ class ClientTest < Minitest::Test
   end
 
 end
-
-
-

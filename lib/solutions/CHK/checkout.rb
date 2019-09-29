@@ -13,7 +13,7 @@ class Checkout
       "H" => 10,
       "I" => 35,
       "J" => 60,
-      "K" => 80,
+      "K" => 70,
       "L" => 90,
       "M" => 15,
       "N" => 40,
@@ -21,14 +21,14 @@ class Checkout
       "P" => 50,
       "Q" => 30,
       "R" => 50,
-      "S" => 30,
+      "S" => 20,
       "T" => 20,
       "U" => 40,
       "V" => 50,
       "W" => 20,
-      "X" => 90,
-      "Y" => 10,
-      "Z" => 50
+      "X" => 17,
+      "Y" => 20,
+      "Z" => 21
     }
 
   STXYZ_DISCOUNTS = "STXYZ".each_char.to_a.repeated_combination(5).each.reduce({}) { |acc, val| acc[val.join] = 45; acc }
@@ -154,9 +154,3 @@ class Checkout
   end
 
 end
-
-
-
-
-
-
